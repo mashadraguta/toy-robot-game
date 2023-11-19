@@ -1,37 +1,45 @@
 import { useEffect, useState } from "react";
-import { NR_COLUMNS, NR_ROWS } from "../consts";
+import { useAppSelector } from "../Hooks/ReduxHooks";
 
 import Robot from "./01.png";
 import { useStyles } from "./Board.style";
 export const Board = () => {
     let squares = [];
-    //@ts-ignore
-
-    // NORTH, SOUTH, EAST, WEST
-    // todo: find a way to replace in css those consts
+    const boardDimension = useAppSelector((state) => state.game.squareNr);
     let [row, setRow] = useState(0);
     let [column, setColumn] = useState(0);
+    let [rowW, setRowW] = useState(0);
+    let [columnW, setColumnW] = useState(0);
+    let [filled, setFilled] = useState(false)
     let [directionU, setDirection] = useState("");
     let [robot, setRobot] = useState({
         x: 1,
         y: 1,
         direction: "",
     });
-    const styles = useStyles({ directionU });
+    let [wall, setWall] = useState({
+        x: 0,
+        y: 0
+    })
+
+
+    console.log(`boardDimension is====>`, boardDimension)
+    const styles = useStyles({ directionU, boardDimension });
     class Square {
         column: number;
         row: number;
         element: HTMLElement | undefined;
-
-        constructor(row: number, column: number) {
+        filled: boolean;
+        constructor(row: number, column: number, filled: boolean) {
             this.row = row;
             this.column = column;
+            this.filled = filled;
         }
     }
 
-    for (let i = 1; i <= NR_COLUMNS; i++) {
-        for (let j = 1; j <= NR_ROWS; j++) {
-            let square = new Square(i, j);
+    for (let i = 1; i <= boardDimension; i++) {
+        for (let j = 1; j <= boardDimension; j++) {
+            let square = new Square(i, j, false);
             square.element = document.createElement("div");
             square.element.id = `${j}${i}`;
             square.row = j;
@@ -47,7 +55,7 @@ export const Board = () => {
             y: row,
             direction: directionU,
         });
-        console.log(robot);
+        //  console.log(robot);
     };
     const moveRobotRight = () => {
         setRobot((prevState) => ({
@@ -77,11 +85,22 @@ export const Board = () => {
             direction: prevState.direction,
         }));
     };
+    const placeWall = () => {
+        setWall({
+            x: columnW,
+            y: rowW
+        })
+        //setFilled(true)
+        // let matchElement = reversedArray.find(item => item.column == wall.y && item.row == wall.x)
+
+        // console.log(matchElement)
+    };
 
     return (
-        <div className={styles.flex}>
-            <div className={styles.flex}>
+        <div className={styles.flexMain}>
+            <div className={styles.flexControls}>
                 <div>
+                    <h2>PLACE ROBOT</h2>
                     <fieldset>
                         <legend>Which row?:</legend>
                         <input
@@ -141,8 +160,8 @@ export const Board = () => {
                 </div>
                 <div className={styles.controls}>
                     <button onClick={placeRobot}>place robot</button>
-                    <button onClick={moveRobotRight}>move robot to right</button>
-                    <button onClick={moveRobotLeft}>move robot to left</button>
+                    <button onClick={moveRobotRight}>right</button>
+                    <button onClick={moveRobotLeft}>left</button>
                     <button onClick={moveRobotUp}>up</button>
                     <button onClick={moveRobotDown}>down</button>
                 </div>
@@ -151,14 +170,40 @@ export const Board = () => {
                 {reversedArray.map((item, index) => (
                     <>
                         <div key={index} className={styles.gridItem}>
-                            {/* {item.column}r {item.row}c */}
+                            {item.column}r {item.row}c
                             {item.column == robot.y && item.row == robot.x ? (
                                 <img src={Robot} className={styles.robot}></img>
                             ) : null}
+                            {/* <div>
+                                {item.column == wall.y && item.row == wall.x ? (
+                                    <div className={styles.robot}>here we go</div>
+                                ) : null}
+                            </div> */}
                         </div>
                     </>
                 ))}
             </div>
+            <div className={styles.flexControls}>
+                <div >
+                    <h2>PLACE WALL</h2>
+                    <fieldset>
+                        <legend>Which row?:</legend>
+                        <input type="text" placeholder="ROW" onChange={(e) => setRowW(Number(e.target.value))}></input>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Which column?:</legend>
+                        <input type="text" placeholder="COLUMN" onChange={(e) => setColumnW(Number(e.target.value))}></input>
+                    </fieldset>
+                </div>
+                <div>
+                    <div className={styles.controls}>
+                        <button onClick={placeWall}>place wall</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
+
+
+//(item.column == wall.y && item.row == wall.x) ? styles.wall 
