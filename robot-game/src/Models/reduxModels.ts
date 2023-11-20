@@ -6,14 +6,15 @@
 //   };
 
 export interface Square {
-  'x': number;
-  'y': number;
-  'filled': boolean;
+  x: number;
+  y: number;
+  filled: boolean;
+  element?: HTMLDivElement | null; 
 }
 export interface Robot {
-  'column': number;
-  'row': number;
-  'direction': string;
+  column: number;
+  row: number;
+  direction: string;
 }
 
 

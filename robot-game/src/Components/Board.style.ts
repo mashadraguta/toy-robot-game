@@ -58,8 +58,8 @@ export const useStyles = makeStyles(() => ({
     height: "70px",
     borderRadius: "50%",
     backgroundColor: "transparent",
-    transform: ({ directionU }: any) => {
-      switch (directionU) {
+    transform: ({ stateDirection }: any) => {
+      switch (stateDirection) {
         case DIRECTIONS.north:
           return "rotate(180deg)";
         case DIRECTIONS.south:
