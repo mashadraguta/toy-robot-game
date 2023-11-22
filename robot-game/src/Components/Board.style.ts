@@ -48,7 +48,7 @@ export const useStyles = makeStyles(() => ({
     flexDirection: "column",
     gap: "10px",
   },
-  wall: {
+  filled: {
     backgroundColor: "black",
 
   },

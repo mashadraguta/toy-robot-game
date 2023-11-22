@@ -7,6 +7,7 @@ import { moveRobotEast, moveRobotNorth, moveRobotSouth, moveRobotWest, placeRobo
 
 export const RobotControls = () => {
     const stateRobot = useAppSelector((state) => state.game.robot);
+    let boardState = useAppSelector(state => state.game.board)
     const boardDimension = useAppSelector((state) => state.game.squareNr);
     const dispatch = useAppDispatch();
     let [row, setRow] = useState(0);
@@ -34,9 +35,9 @@ export const RobotControls = () => {
     // north <> south
     // west <> east
 
-
+    //  console.log(`board state===>`, boardState.map(item => console.log(item.filled)))
     const turnRobot = () => {
-        console.log(stateRobot.direction)
+        //  console.log(stateRobot.direction)
     }
 
     return (<div >
@@ -106,42 +107,3 @@ export const RobotControls = () => {
         </div>
     </div>)
 }
-
-
-
-
-// const placeRobot = () => {
-//     setRobot({
-//         x: column,
-//         y: row,
-//         direction: directionU,
-//     });
-// };
-// const moveRobotRight = () => {
-//     setRobot((prevState) => ({
-//         x: prevState.x + 1,
-//         y: row,
-//         direction: prevState.direction,
-//     }));
-// };
-// const moveRobotLeft = () => {
-//     setRobot((prevState) => ({
-//         x: prevState.x - 1,
-//         y: row,
-//         direction: prevState.direction,
-//     }));
-// };
-// const moveRobotUp = () => {
-//     setRobot((prevState) => ({
-//         x: prevState.x,
-//         y: prevState.y + 1,
-//         direction: prevState.direction,
-//     }));
-// };
-// const moveRobotDown = () => {
-//     setRobot((prevState) => ({
-//         x: prevState.x,
-//         y: prevState.y - 1,
-//         direction: prevState.direction,
-//     }));
-// };

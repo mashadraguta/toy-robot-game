@@ -3,9 +3,9 @@ import gameSlice from "./gameSlice";
 import { AnyAction } from "@reduxjs/toolkit";
 import { ThunkAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
+import { Square } from "../Models/reduxModels";
 
 export const gameActions = gameSlice.actions;
-
 export const setNumberOfSquares = (
   nr: number
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
@@ -13,30 +13,23 @@ export const setNumberOfSquares = (
     dispatch(gameActions.setBoard(nr));
   };
 };
-
 export const setAllSquares = (
-  array: any
+  array: Array<Square>
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
     dispatch(gameActions.setArrayOfSquares(array));
   };
 };
 export const setFilledToTrueAction = (
-  x:number,
-  y:number,
-  filled: boolean
+  x: number,
+  y: number,
+  filled:boolean
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
-  //getState().game.board.forEach(i=> (i.x === x && i.y === y) ?  : '')
-  
-  dispatch(gameActions.setSquare({
-    x:y,
-    y:y,
-    filled: true,
-  }))
-    
+    dispatch(gameActions.setFilled({ x, y ,filled}));
   };
 };
+
 export const placeRobotCoords = (
   x: number,
   y: number,
@@ -132,22 +125,7 @@ export const moveRobotEast = (
   };
 };
 
-
 //north right -> west
 //north left -> east
 //east right -> south
 //east right -> west
-
-
-
-
-// export const setCoordsOfSquares = (
-//   x: number,
-//   y: number,
-//   filled: boolean
-// ): ThunkAction<void, RootState, unknown, AnyAction> => {
-//   return (dispatch, getState) => {
-//     //@ts-ignore
-//     dispatch(gameActions.setSquare(x, y, filled));
-//   };
-// };

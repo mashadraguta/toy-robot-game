@@ -1,9 +1,3 @@
-// export const DIRECTIONS = {
-//     north: "NORTH",
-//     south: "SOUTH",
-//     east: "EAST",
-//     west: "WEST",
-//   };
 
 export interface Square {
   x: number;
@@ -16,7 +10,6 @@ export interface Robot {
   row: number;
   direction: string;
 }
-
 
 export interface GameModel{
   board:Array<Square>,

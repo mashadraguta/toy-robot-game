@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../Hooks/ReduxHooks";
 import { setFilledToTrueAction } from "../Store/gameActions";
@@ -7,13 +7,14 @@ export const WallControls = () => {
     let [rowW, setRowW] = useState(0);
     let [columnW, setColumnW] = useState(0);
     const dispatch = useAppDispatch()
+    let [userWall, setUserWall] = useState({})
     let boardState = useAppSelector(state => state.game.board)
 
     const placeWall = () => {
-        boardState.map(item => item.y == rowW && item.x == columnW ? dispatch(setFilledToTrueAction(rowW, columnW, true)) : '')
-        // dispatch(setFilledToTrueAction(rowW, columnW, true))
+
+        dispatch(setFilledToTrueAction(columnW, rowW, true))
     }
-    console.log(boardState)
+
     return (
         <div>
             <div>
