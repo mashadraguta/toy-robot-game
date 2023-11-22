@@ -10,10 +10,16 @@ export interface Robot {
   row: number;
   direction: string;
 }
+export interface Wall {
+  column: number;
+  row: number;
+ 
+}
 
 export interface GameModel{
   board:Array<Square>,
   square: Square,
   robot: Robot,
+  wall: Wall,
   squareNr:number
 }

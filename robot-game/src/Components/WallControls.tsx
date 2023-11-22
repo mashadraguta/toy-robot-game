@@ -6,15 +6,15 @@ import { setFilledToTrueAction } from "../Store/gameActions";
 export const WallControls = () => {
     let [rowW, setRowW] = useState(0);
     let [columnW, setColumnW] = useState(0);
-    const dispatch = useAppDispatch()
-    let [userWall, setUserWall] = useState({})
-    let boardState = useAppSelector(state => state.game.board)
-
+    let [show, setShow] = useState(false);
+    const stateRobot = useAppSelector((state) => state.game.robot);
+    const dispatch = useAppDispatch();
     const placeWall = () => {
-
-        dispatch(setFilledToTrueAction(columnW, rowW, true))
-    }
-
+        dispatch(setFilledToTrueAction(columnW, rowW, true));
+    };
+    const showActualPosition = () => {
+        setShow(!show)
+    };
     return (
         <div>
             <div>
@@ -38,7 +38,16 @@ export const WallControls = () => {
             </div>
             <div>
                 <button onClick={placeWall}>place wall</button>
+                <button onClick={showActualPosition}>{show ? 'Hide Robot Position' : 'Show Robot Position'}</button>
             </div>
-        </div >
+            {show ? (
+                <div>
+                    <div>Row is {stateRobot.row}</div>
+                    <div>Column is {stateRobot.column}</div>
+                    <div>Direction is {stateRobot.direction.toLowerCase()}</div>
+                </div>
+            ) : null}
+
+        </div>
     );
 };

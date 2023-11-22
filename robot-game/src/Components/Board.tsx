@@ -44,7 +44,6 @@ export const Board = () => {
   useEffect(() => {
     dispatch(setAllSquares(squares))
   }, [boardDimension])
-  //console.log(`boardState from Board is ===>`, stateBoard)
   return (
     <div className={styles.flexMain}>
       <RobotControls />
@@ -56,7 +55,7 @@ export const Board = () => {
             })}>
               {item.y}r {item.x}c
               {item.filled}
-              {item.x == stateRobot.row && item.y == stateRobot.column ? (
+              {item.x == stateRobot.column && item.y == stateRobot.row ? (
                 <img src={Robot} className={styles.robot}></img>
               ) : null}
             </div>

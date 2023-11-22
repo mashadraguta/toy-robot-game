@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GameModel, Robot, Square } from "../Models/reduxModels";
+import { GameModel, Robot, Square, Wall } from "../Models/reduxModels";
 
 const initialGameState: GameModel = {
   square: {
@@ -11,7 +11,11 @@ const initialGameState: GameModel = {
   robot: {
     column: 1,
     row: 1,
-    direction: "",
+    direction: "NORTH",
+  },
+  wall: {
+    column: 0,
+    row: 0,
   },
   board: [],
   squareNr: 5,
@@ -25,11 +29,17 @@ const gameSlice = createSlice({
       state.squareNr = action.payload;
     },
     setFilled(state, action: PayloadAction<Square>) {
-      const { x, y,filled } = action.payload;
-      const index = state.board.findIndex((square) => square.x === x && square.y === y);
+      const { x, y, filled } = action.payload;
+      const index = state.board.findIndex(
+        (square) => square.x === x && square.y === y
+      );
       if (index !== -1) {
         state.board[index] = { ...state.board[index], filled: filled };
       }
+    },
+    setNewDirection(state, action: PayloadAction<any>) {
+      const { direction } = action.payload;
+      state.robot = { ...state.robot, direction: direction };
     },
     setRobot(state, action: PayloadAction<Robot>) {
       state.robot = action.payload;
@@ -39,6 +49,9 @@ const gameSlice = createSlice({
     },
     setRobotCoords(state, action: PayloadAction<Robot>) {
       state.robot = action.payload;
+    },
+    setWall(state, action: PayloadAction<Wall>) {
+      state.wall = action.payload;
     },
   },
 });

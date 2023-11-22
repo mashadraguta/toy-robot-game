@@ -20,13 +20,24 @@ export const setAllSquares = (
     dispatch(gameActions.setArrayOfSquares(array));
   };
 };
+export const setNewDirectionAction = (
+  dir: string
+): ThunkAction<void, RootState, unknown, AnyAction> => {
+  return (dispatch, getState) => {
+    dispatch(
+      gameActions.setNewDirection({
+        direction: dir,
+      })
+    );
+  };
+};
 export const setFilledToTrueAction = (
   x: number,
   y: number,
-  filled:boolean
+  filled: boolean
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
-    dispatch(gameActions.setFilled({ x, y ,filled}));
+    dispatch(gameActions.setFilled({ x, y, filled }));
   };
 };
 
@@ -45,54 +56,39 @@ export const placeRobotCoords = (
     );
   };
 };
-export const moveRobot = (
+export const setWallCoords = (
   x: number,
   y: number,
-  dir: string
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
     dispatch(
-      gameActions.setRobotCoords({
+      gameActions.setWall({
         column: x,
-        row: y,
-        direction: dir,
+        row: y     
       })
     );
   };
 };
+
 export const moveRobotNorth = (
   x: number,
   y: number,
   dir: string
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
-    let stateColumn = getState().game.robot.column;
+    let stateRow = getState().game.robot.row;
+ // getState().game.board.map(item=>item.x + 1 == stateRow && item.filled? return
+   // console.log(filledItem)
     dispatch(
       gameActions.setRobotCoords({
-        column: stateColumn + 1,
-        row: y,
+        column: x,
+        row: stateRow + 1,
         direction: dir,
       })
     );
   };
 };
 export const moveRobotSouth = (
-  x: number,
-  y: number,
-  dir: string
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return (dispatch, getState) => {
-    let stateColumn = getState().game.robot.column;
-    dispatch(
-      gameActions.setRobotCoords({
-        column: stateColumn - 1,
-        row: y,
-        direction: dir,
-      })
-    );
-  };
-};
-export const moveRobotWest = (
   x: number,
   y: number,
   dir: string
@@ -108,24 +104,37 @@ export const moveRobotWest = (
     );
   };
 };
+export const moveRobotWest = (
+  x: number,
+  y: number,
+  dir: string
+): ThunkAction<void, RootState, unknown, AnyAction> => {
+  return (dispatch, getState) => {
+    let stateColumn = getState().game.robot.column;
+    dispatch(
+      gameActions.setRobotCoords({
+        column: stateColumn - 1,
+        row: y,
+        direction: dir,
+      })
+    );
+  };
+};
 export const moveRobotEast = (
   x: number,
   y: number,
   dir: string
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
-    let stateRow = getState().game.robot.row;
+    let stateColumn = getState().game.robot.column;
     dispatch(
       gameActions.setRobotCoords({
-        column: x,
-        row: stateRow + 1,
+        column: stateColumn + 1,
+        row: y,
         direction: dir,
       })
     );
   };
 };
 
-//north right -> west
-//north left -> east
-//east right -> south
-//east right -> west
+

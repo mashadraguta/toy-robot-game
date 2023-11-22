@@ -6,6 +6,7 @@ export const DIRECTIONS = {
   south: "SOUTH",
   east: "EAST",
   west: "WEST",
+
 };
 
 export const useStyles = makeStyles(() => ({
@@ -68,6 +69,7 @@ export const useStyles = makeStyles(() => ({
           return "rotate(270deg)";
         case DIRECTIONS.west:
           return "rotate(90deg)";
+       
         default:
           return "rotate(0deg)";
       }
