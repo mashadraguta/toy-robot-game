@@ -1,9 +1,9 @@
 
-export interface Square {
+export interface SquareT {
   x: number;
   y: number;
   filled: boolean;
-  element?: HTMLDivElement | null; 
+  element?: HTMLElement | null; 
 }
 export interface Robot {
   column: number;
@@ -17,8 +17,8 @@ export interface Wall {
 }
 
 export interface GameModel{
-  board:Array<Square>,
-  square: Square,
+  board:Array<SquareT>,
+  square: SquareT,
   robot: Robot,
   wall: Wall,
   squareNr:number

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GameModel, Robot, Square, Wall } from "../Models/reduxModels";
+import { GameModel, Robot, SquareT, Wall } from "../Models/reduxModels";
 
 const initialGameState: GameModel = {
   square: {
@@ -28,7 +28,7 @@ const gameSlice = createSlice({
     setBoard(state, action: PayloadAction<number>) {
       state.squareNr = action.payload;
     },
-    setFilled(state, action: PayloadAction<Square>) {
+    setFilled(state, action: PayloadAction<SquareT>) {
       const { x, y, filled } = action.payload;
       const index = state.board.findIndex(
         (square) => square.x === x && square.y === y

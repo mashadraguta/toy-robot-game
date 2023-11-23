@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../Hooks/ReduxHooks";
 import {
     moveRobotEast,
@@ -9,7 +9,16 @@ import {
     setNewDirectionAction,
 } from "../Store/gameActions";
 import { useStyles } from "./RobotControls.style";
-
+import SubdirectoryArrowLeftIcon from "@mui/icons-material/SubdirectoryArrowLeft";
+import SubdirectoryArrowRightIcon from "@mui/icons-material/SubdirectoryArrowRight";
+import {
+    Button,
+    FormControl,
+    FormControlLabel,
+    IconButton,
+    Radio,
+    RadioGroup,
+} from "@mui/material";
 export const RobotControls = () => {
     const stateRobot = useAppSelector((state) => state.game.robot);
     let boardState = useAppSelector((state) => state.game.board);
@@ -19,7 +28,9 @@ export const RobotControls = () => {
     let [column, setColumn] = useState(0);
     let [directionU, setDirection] = useState("");
     const styles = useStyles();
-
+    const setNewDirection = (e: any) => {
+        setDirection(e.target.value);
+    };
     const setRobotXY = () => {
         const isNextPositionFilled = boardState.some(
             (square) => square.x === column && square.y === row && square.filled
@@ -140,50 +151,55 @@ export const RobotControls = () => {
                 </fieldset>
                 <fieldset>
                     <legend>Choose your robot's direction:</legend>
-                    <div>
-                        <input
-                            type="radio"
-                            id="NORTH"
-                            name="direction"
-                            onChange={(e) => setDirection(e.target.id)}
-                        />
-                        <label>NORTH</label>
-                    </div>
-
-                    <div>
-                        <input
-                            type="radio"
-                            id="SOUTH"
-                            name="direction"
-                            onChange={(e) => setDirection(e.target.id)}
-                        />
-                        <label>SOUTH</label>
-                    </div>
-                    <div>
-                        <input
-                            type="radio"
-                            id="EAST"
-                            name="direction"
-                            onChange={(e) => setDirection(e.target.id)}
-                        />
-                        <label>EAST</label>
-                    </div>
-                    <div>
-                        <input
-                            type="radio"
-                            id="WEST"
-                            name="direction"
-                            onChange={(e) => setDirection(e.target.id)}
-                        />
-                        <label>WEST</label>
-                    </div>
+                    <FormControl>
+                        <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="female"
+                            name="radio-buttons-group"
+                        >
+                            <FormControlLabel
+                                value="NORTH"
+                                control={<Radio onChange={(e) => setNewDirection(e)} />}
+                                label="north"
+                            />
+                            <FormControlLabel
+                                value="SOUTH"
+                                control={<Radio onChange={(e) => setNewDirection(e)} />}
+                                label="south"
+                            />
+                            <FormControlLabel
+                                value="EAST"
+                                control={<Radio onChange={(e) => setNewDirection(e)} />}
+                                label="east"
+                            />
+                            <FormControlLabel
+                                value="WEST"
+                                control={<Radio onChange={(e) => setNewDirection(e)} />}
+                                label="west"
+                            />
+                        </RadioGroup>
+                    </FormControl>
                 </fieldset>
             </div>
-            <div className={styles.controls}>
-                <button onClick={setRobotXY}>place robot</button>
-                <button onClick={moveRobot}>move robot</button>
-                <button onClick={turnRobotLeft}>LEFT</button>
-                <button onClick={turnRobotRight}>RIGHT</button>
+            <div className={styles.control}>
+                <Button variant="contained" size="large" onClick={setRobotXY}>
+                    place robot
+                </Button>
+                <div className={styles.controlMove}>
+                    <div>
+                        <Button variant="contained" size="medium" onClick={moveRobot}>
+                            move robot
+                        </Button>
+                    </div>
+                    <div>
+                        <IconButton size="small" onClick={turnRobotLeft}>
+                            <SubdirectoryArrowLeftIcon color="action" />
+                        </IconButton>
+                        <IconButton size="small" onClick={turnRobotRight}>
+                            <SubdirectoryArrowRightIcon color="action" />
+                        </IconButton>
+                    </div>
+                </div>
             </div>
         </div>
     );

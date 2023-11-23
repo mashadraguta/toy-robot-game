@@ -18,14 +18,11 @@ export const useStyles = makeStyles(() => ({
     direction: "rtl",
     justifyContent: "center",
   },
-
   wrapper: {
-    paddingTop: "100px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-
   gridItem: {
     backgroundColor: "lightsalmon",
     border: "2px solid black",
@@ -36,7 +33,6 @@ export const useStyles = makeStyles(() => ({
   flexMain: {
     display: "flex",
     justifyContent: "space-between",
-    paddingTop: "100px",
     gap: "50px",
   },
   flexControls: {
@@ -51,14 +47,10 @@ export const useStyles = makeStyles(() => ({
   },
   filled: {
     backgroundColor: "black",
-
   },
-
   robot: {
     width: "70px",
     height: "70px",
-    borderRadius: "50%",
-    backgroundColor: "transparent",
     transform: ({ stateDirection }: any) => {
       switch (stateDirection) {
         case DIRECTIONS.north:
@@ -69,7 +61,6 @@ export const useStyles = makeStyles(() => ({
           return "rotate(270deg)";
         case DIRECTIONS.west:
           return "rotate(90deg)";
-       
         default:
           return "rotate(0deg)";
       }

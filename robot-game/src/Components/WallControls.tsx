@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { Button } from "@mui/material";
+import { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../Hooks/ReduxHooks";
 import { setFilledToTrueAction } from "../Store/gameActions";
+import { useStyles } from "./RobotControls.style";
 
 export const WallControls = () => {
     let [rowW, setRowW] = useState(0);
@@ -9,11 +11,18 @@ export const WallControls = () => {
     let [show, setShow] = useState(false);
     const stateRobot = useAppSelector((state) => state.game.robot);
     const dispatch = useAppDispatch();
+    const styles = useStyles();
+
+    const squareHasRobot =
+        columnW === stateRobot.column && rowW === stateRobot.row;
+
     const placeWall = () => {
+        if (squareHasRobot) return;
         dispatch(setFilledToTrueAction(columnW, rowW, true));
     };
+
     const showActualPosition = () => {
-        setShow(!show)
+        setShow(!show);
     };
     return (
         <div>
@@ -36,9 +45,13 @@ export const WallControls = () => {
                     ></input>
                 </fieldset>
             </div>
-            <div>
-                <button onClick={placeWall}>place wall</button>
-                <button onClick={showActualPosition}>{show ? 'Hide Robot Position' : 'Show Robot Position'}</button>
+            <div className={styles.control}>
+                <Button variant="contained" size="large" onClick={placeWall}>
+                    place wall
+                </Button>
+                <Button variant="contained" size="medium" onClick={showActualPosition}>
+                    {show ? "Hide Robot Position" : "Show Robot Position"}
+                </Button>
             </div>
             {show ? (
                 <div>
@@ -47,7 +60,6 @@ export const WallControls = () => {
                     <div>Direction is {stateRobot.direction.toLowerCase()}</div>
                 </div>
             ) : null}
-
         </div>
     );
 };

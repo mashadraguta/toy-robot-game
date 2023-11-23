@@ -3,7 +3,7 @@ import gameSlice from "./gameSlice";
 import { AnyAction } from "@reduxjs/toolkit";
 import { ThunkAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
-import { Square } from "../Models/reduxModels";
+import { SquareT } from "../Models/reduxModels";
 
 export const gameActions = gameSlice.actions;
 export const setNumberOfSquares = (
@@ -14,7 +14,7 @@ export const setNumberOfSquares = (
   };
 };
 export const setAllSquares = (
-  array: Array<Square>
+  array: Array<SquareT>
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
     dispatch(gameActions.setArrayOfSquares(array));
@@ -77,8 +77,6 @@ export const moveRobotNorth = (
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
   return (dispatch, getState) => {
     let stateRow = getState().game.robot.row;
- // getState().game.board.map(item=>item.x + 1 == stateRow && item.filled? return
-   // console.log(filledItem)
     dispatch(
       gameActions.setRobotCoords({
         column: x,

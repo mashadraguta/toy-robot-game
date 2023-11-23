@@ -5,27 +5,44 @@ import { useAppDispatch, useAppSelector } from "../Hooks/ReduxHooks";
 import { useStyles } from "./Initial.style";
 import { useNavigate } from "react-router-dom";
 import { setNumberOfSquares } from "../Store/gameActions";
+import { Button, TextField } from "@mui/material";
 
 export const Initial = () => {
     const dispatch = useAppDispatch();
     const boardDimension = useAppSelector((state) => state.game.squareNr);
     let [userNumber, setUserNumber] = useState(boardDimension);
+    let [error, setError] = useState(false);
+
     const navigate = useNavigate();
     const styles = useStyles();
 
     const populateBoard = () => {
+        if (error) return
         dispatch(setNumberOfSquares(userNumber));
         navigate("/board");
     };
-
     return (
         <div className={styles.container}>
-            Choose a number between 5 and 10:
-            <input
-                type="text"
-                onChange={(e) => setUserNumber(Number(e.target.value))}
+            <h1>Welcome to the robot game</h1>
+            <h2>Please, type a number between 5 and 10 to start </h2>
+            <TextField
+                type="number"
+                label="type a number here"
+                variant="filled"
+                error={error}
+                InputProps={{ inputProps: { min: 5, max: 10 } }}
+                onChange={(e) => {
+                    if (Number(e.target.value) > 10 || Number(e.target.value) < 5) {
+                        setError(true)
+                    } else {
+                        setError(false)
+                        setUserNumber(Number(e.target.value))
+                    }
+                }}
             />
-            <button onClick={populateBoard}>start game</button>
+            <Button variant="contained" size="large" onClick={populateBoard}>
+                start game
+            </Button>
         </div>
     );
 };
