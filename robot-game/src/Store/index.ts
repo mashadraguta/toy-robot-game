@@ -1,18 +1,23 @@
-import {configureStore} from '@reduxjs/toolkit';
-import gameSlice from './gameSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
+import gameSlice from "./gameSlice";
 
-const store=configureStore(
-   
-    {
-        middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-          serializableCheck: false
-        }),
-        reducer:{game:gameSlice.reducer}
-    }
-)
+export const createReduxStore = (initialState = {}) => {
+  return configureStore({
+    reducer: { game: gameSlice.reducer },
+    preloadedState: initialState,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    }),
+  });
+};
 
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+const store = createReduxStore()
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 export default store;
+
+

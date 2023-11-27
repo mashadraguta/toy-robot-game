@@ -2,8 +2,9 @@ import gameSlice from "./gameSlice";
 
 import { AnyAction } from "@reduxjs/toolkit";
 import { ThunkAction } from "@reduxjs/toolkit";
-import { RootState } from ".";
+
 import { SquareT } from "../Models/reduxModels";
+import { RootState } from ".";
 
 export const gameActions = gameSlice.actions;
 export const setNumberOfSquares = (

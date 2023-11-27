@@ -153,8 +153,6 @@ export const RobotControls = () => {
                     <legend>Choose your robot's direction:</legend>
                     <FormControl>
                         <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="female"
                             name="radio-buttons-group"
                         >
                             <FormControlLabel
@@ -176,6 +174,7 @@ export const RobotControls = () => {
                                 value="WEST"
                                 control={<Radio onChange={(e) => setNewDirection(e)} />}
                                 label="west"
+                                data-testid='west-control'
                             />
                         </RadioGroup>
                     </FormControl>
@@ -187,12 +186,12 @@ export const RobotControls = () => {
                 </Button>
                 <div className={styles.controlMove}>
                     <div>
-                        <Button variant="contained" size="medium" onClick={moveRobot}>
+                        <Button variant="contained" size="medium" onClick={moveRobot} data-testid="move-btn" >
                             move robot
                         </Button>
                     </div>
                     <div>
-                        <IconButton size="small" onClick={turnRobotLeft}>
+                        <IconButton size="small" onClick={turnRobotLeft} data-testid="turn-left-btn">
                             <SubdirectoryArrowLeftIcon color="action" />
                         </IconButton>
                         <IconButton size="small" onClick={turnRobotRight}>

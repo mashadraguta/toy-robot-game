@@ -17,30 +17,37 @@ export const Initial = () => {
     const styles = useStyles();
 
     const populateBoard = () => {
-        if (error) return
+        if (error) return;
         dispatch(setNumberOfSquares(userNumber));
         navigate("/board");
     };
     return (
         <div className={styles.container}>
-            <h1>Welcome to the robot game</h1>
+            <h1 data-testid="main-title">Welcome to the robot game</h1>
             <h2>Please, type a number between 5 and 10 to start </h2>
             <TextField
                 type="number"
                 label="type a number here"
                 variant="filled"
                 error={error}
-                InputProps={{ inputProps: { min: 5, max: 10 } }}
+                InputProps={{
+                    inputProps: { min: 5, max: 10, "data-testid": "entry-number-value" },
+                }}
                 onChange={(e) => {
                     if (Number(e.target.value) > 10 || Number(e.target.value) < 5) {
-                        setError(true)
+                        setError(true);
                     } else {
-                        setError(false)
-                        setUserNumber(Number(e.target.value))
+                        setError(false);
+                        setUserNumber(Number(e.target.value));
                     }
                 }}
             />
-            <Button variant="contained" size="large" onClick={populateBoard}>
+            <Button
+                variant="contained"
+                size="large"
+                onClick={populateBoard}
+                data-testid="populate-btn"
+            >
                 start game
             </Button>
         </div>

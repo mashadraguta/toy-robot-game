@@ -24,7 +24,7 @@ export const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   gridItem: {
-    backgroundColor: "lightsalmon",
+    backgroundColor: "#5F9EA0",
     border: "2px solid black",
     width: "100px",
     height: "100px",

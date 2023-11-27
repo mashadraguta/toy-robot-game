@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GameModel, Robot, SquareT, Wall } from "../Models/reduxModels";
 
-const initialGameState: GameModel = {
+export const initialGameState: GameModel = {
   square: {
     x: 1,
     y: 1,
@@ -21,7 +21,7 @@ const initialGameState: GameModel = {
   squareNr: 5,
 };
 
-const gameSlice = createSlice({
+export const gameSlice = createSlice({
   name: "game",
   initialState: initialGameState,
   reducers: {

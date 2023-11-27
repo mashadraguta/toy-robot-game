@@ -42,18 +42,19 @@ export const Board = () => {
     dispatch(setAllSquares(squares));
   }, [boardDimension]);
   return (
-    <div className={styles.flexMain}>
+    <div className={styles.flexMain} data-testid='main-board'>
       <RobotControls />
       <div className={styles.container}>
         {[...stateBoard].reverse().map((item: any, index: number) => (
           <div
             key={index}
+            data-testid='square-item'
             className={classNames(styles.gridItem, {
               [styles.filled]: item.filled,
             })}
           >
             {item.x == stateRobot.column && item.y == stateRobot.row ? (
-              <img src={Robot} className={styles.robot}></img>
+              <img src={Robot} className={styles.robot} data-testid='robot-item'></img>
             ) : null}
           </div>
         ))}

@@ -46,15 +46,15 @@ export const WallControls = () => {
                 </fieldset>
             </div>
             <div className={styles.control}>
-                <Button variant="contained" size="large" onClick={placeWall}>
+                <Button variant="contained" size="large" onClick={placeWall} >
                     place wall
                 </Button>
-                <Button variant="contained" size="medium" onClick={showActualPosition}>
+                <Button variant="contained" size="medium" onClick={showActualPosition} data-testid='print-btn'>
                     {show ? "Hide Robot Position" : "Show Robot Position"}
                 </Button>
             </div>
             {show ? (
-                <div>
+                <div data-testid='print-info'>
                     <div>Row is {stateRobot.row}</div>
                     <div>Column is {stateRobot.column}</div>
                     <div>Direction is {stateRobot.direction.toLowerCase()}</div>
