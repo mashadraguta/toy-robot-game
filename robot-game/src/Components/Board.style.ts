@@ -1,20 +1,23 @@
 import { makeStyles } from "@mui/styles";
 
-
 export const DIRECTIONS = {
   north: "NORTH",
   south: "SOUTH",
   east: "EAST",
   west: "WEST",
-
 };
-
+export interface StyleProps {
+  stateDirection: string;
+  boardDimension?: number;
+}
 export const useStyles = makeStyles(() => ({
   container: {
     display: "grid",
     gridGap: "5px",
-    gridTemplateColumns:({boardDimension})=> `repeat(${boardDimension}, 100px)`,
-    gridTemplateRows:({boardDimension})=> `repeat(${boardDimension}, 100px)`,
+    gridTemplateColumns: ({ boardDimension }) =>
+      `repeat(${boardDimension}, 100px)`,
+    gridTemplateRows: ({ boardDimension }) =>
+      `repeat(${boardDimension}, 100px)`,
     direction: "rtl",
     justifyContent: "center",
   },
@@ -51,7 +54,7 @@ export const useStyles = makeStyles(() => ({
   robot: {
     width: "70px",
     height: "70px",
-    transform: ({ stateDirection }: any) => {
+    transform: ({ stateDirection }: StyleProps) => {
       switch (stateDirection) {
         case DIRECTIONS.north:
           return "rotate(180deg)";
@@ -67,5 +70,3 @@ export const useStyles = makeStyles(() => ({
     },
   },
 }));
-
-

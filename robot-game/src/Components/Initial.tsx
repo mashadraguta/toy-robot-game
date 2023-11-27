@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../Hooks/ReduxHooks";
 import { useStyles } from "./Initial.style";

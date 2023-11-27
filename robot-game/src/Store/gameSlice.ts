@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { GameModel, Robot, SquareT, Wall } from "../Models/reduxModels";
+import { GameModel, Robot, SquareT } from "../Models/reduxModels";
 
 export const initialGameState: GameModel = {
   square: {
@@ -12,10 +12,6 @@ export const initialGameState: GameModel = {
     column: 1,
     row: 1,
     direction: "NORTH",
-  },
-  wall: {
-    column: 0,
-    row: 0,
   },
   board: [],
   squareNr: 5,
@@ -49,9 +45,6 @@ export const gameSlice = createSlice({
     },
     setRobotCoords(state, action: PayloadAction<Robot>) {
       state.robot = action.payload;
-    },
-    setWall(state, action: PayloadAction<Wall>) {
-      state.wall = action.payload;
     },
   },
 });

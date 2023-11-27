@@ -57,19 +57,7 @@ export const placeRobotCoords = (
     );
   };
 };
-export const setWallCoords = (
-  x: number,
-  y: number,
-): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return (dispatch, getState) => {
-    dispatch(
-      gameActions.setWall({
-        column: x,
-        row: y     
-      })
-    );
-  };
-};
+
 
 export const moveRobotNorth = (
   x: number,
